@@ -5,6 +5,7 @@ import SignUp from './Pages/SignUp';
 import AddBooking from './Pages/AddBooking';
 import AddService from './Pages/AddServices';
 import AllService from './Pages/AllServices';
+import AllBooking from './Pages/AllBooking';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path='/addbooking' element={<AddBooking/>}/>
         <Route path='/addservice' element={<AddService/>}/>
         <Route path='/allservice' element={<AllService/>}/>
+        <Route path='/allbooking' element={<AllBooking/>}/>
       </Routes>
     </Router>
     
