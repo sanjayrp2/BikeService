@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import useAuth from '../../Hooks/auth';
 
 export default function AllBooking() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  useAuth();
 
   useEffect(() => {
     const fetchBookings = async () => {

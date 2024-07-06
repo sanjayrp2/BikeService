@@ -1,6 +1,8 @@
 const User=require("../Models/User");
 const Admin=require("../Models/Admin");
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const SECRET_KEY = 'supersecret';
 
 //User Login
 module.exports.UserLogin = async (req, res) => {
@@ -27,7 +29,8 @@ module.exports.UserLogin = async (req, res) => {
 
         const valid = await bcrypt.compare(password, user.pass);
         if (valid) {
-            return res.json({ status: "ok", role: role, data: user });
+            const token = jwt.sign({ id: user._id, role: role }, SECRET_KEY);
+            return res.json({ status: "ok", role: role, data: user,token:token });
         } else {
             return res.json({ status: "error", error: "Invalid Password" });
         }

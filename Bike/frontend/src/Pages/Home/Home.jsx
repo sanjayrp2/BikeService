@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from '../../Component/Navbar';
-import { home } from '../../Assets'; // Assuming home is your image import
+import { home } from '../../Assets'; 
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import useAuth from '../../Hooks/auth';
 
 export default function Home() {
   const navigate = useNavigate();
+  useAuth();
   return (
     <div>
       <Navbar />
