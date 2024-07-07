@@ -4,7 +4,7 @@ const {BookingDetails ,AddBooking,FetchAllBooking,UpdateBooking, CompletedBookin
 const { model } = require('mongoose');
 
 router.post('/addbooking',AddBooking);
-router.get('/history',CompletedBooking);
+router.post('/history',CompletedBooking);
 router.post('/allbookings', FetchAllBooking);
 router.put('/updatestatus', UpdateBooking);
 router.get('/details', BookingDetails );

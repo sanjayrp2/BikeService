@@ -6,6 +6,7 @@ import AddBooking from './Pages/AddBooking';
 import AddService from './Pages/AddServices';
 import AllService from './Pages/AllServices';
 import AllBooking from './Pages/AllBooking';
+import BookingHistory from './Pages/BookingHistory';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path='/addservice' element={<AddService/>}/>
         <Route path='/allservice' element={<AllService/>}/>
         <Route path='/allbooking' element={<AllBooking/>}/>
+        <Route path='/bookings' element={<BookingHistory/>}/>
       </Routes>
     </Router>
     

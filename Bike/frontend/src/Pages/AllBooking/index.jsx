@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { TextField, Button } from '@mui/material';
+import Navbar from '../../Component/Navbar';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function AllBooking() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchBookings = async () => {
       try {
         const response = await axios.get('http://localhost:5000/admin/seeallbooking');
         if (response.data.status === 'OK') {
           setBookings(response.data.data);
+          navigate('/allbooking');
         } else {    
           setError('Failed to fetch bookings');
         }
@@ -26,9 +31,15 @@ export default function AllBooking() {
   }, []);
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-4xl">
-        <h2 className="text-2xl font-bold text-center text-orange-600 mb-4">Bookings List</h2>
+    <>
+    <Navbar/>
+    <div className="">
+      <div className="mt-4">
+        
+        <h2 className="text-2xl font-bold text-center text-orange-600 mb-2">Bookings List</h2>
+        <div className='flex justify-end items-center mb-4'>
+        <Button variant="contained" sx={{ backgroundColor: '#0C97BF', mt: 2 }} type='submit' className='md:col-span-2' onClick={() => { navigate('/addbooking') }}>Add Booking</Button>
+        </div>
         {loading ? (
           <p className="text-center">Loading...</p>
         ) : error ? (
@@ -71,5 +82,6 @@ export default function AllBooking() {
         )}
       </div>
     </div>
+    </>
   );
 }

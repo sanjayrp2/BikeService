@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from '../../Component/Navbar';
 import Card from '../../Component/Card';
-
-
-
+import { TextField, Button } from '@mui/material';
 export default function AllService() {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -33,27 +31,25 @@ export default function AllService() {
   return (
     <>
       <Navbar />
-      <div className="flex justify-center items-center min-h-screen bg-gray-100">
-        <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-4xl">
+      <div >
+        <div >
           <h2 className="text-2xl font-bold text-center text-orange-600 mb-4">Services List</h2>
+          <div className='flex items-center justify-end'>
+            <Button variant="contained" sx={{ backgroundColor: '#0C97BF', mt: 2 }}>Add Service</Button>
+          </div>
           {loading ? (
             <p className="text-center">Loading...</p>
           ) : error ? (
             <p className="text-center text-red-500">{error}</p>
           ) : (
-            <div>
-
-              {services.map((service,index) => (
-                 <Card sname={service.sname} sdis={service.sdesc} samnt={service.samount}/>
-                ))}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+              {services.map((service, index) => (
+                <Card key={index} sname={service.sname} sdis={service.sdesc} samnt={service.samount} />
+              ))}
             </div>
-
-
           )}
         </div>
       </div>
-     
-
     </>
   );
 }
