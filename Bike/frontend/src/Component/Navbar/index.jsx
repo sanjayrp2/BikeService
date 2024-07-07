@@ -3,6 +3,13 @@ import { Link } from 'react-router-dom';
 import { Bklogo } from '../../Assets';
 
 const Navbar = () => {
+  const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+    localStorage.removeItem('user');
+    window.location.href = '/login';
+  };
+
   return (
     <nav className="bg-[#0C97BF] p-4">
       <div className="container mx-auto flex justify-between items-center">
@@ -21,9 +28,9 @@ const Navbar = () => {
           <Link to="/history" className="text-white hover:text-gray-300 text-lg font-bold">
             History
           </Link>
-          <Link to="/login" className="text-white hover:text-gray-300 text-lg font-bold">
+          <div  className="text-white hover:text-gray-300 text-lg font-bold cursor-pointer" onClick={logout}>
             Log Out
-          </Link>
+          </div>
         </div>
       </div>
     </nav>

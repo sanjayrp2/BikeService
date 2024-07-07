@@ -27,3 +27,9 @@ app.use('/admin', adminRoutes);
 app.use('/bookings', bookingRoutes);
 app.use('/services', serviceRoutes);
 app.use('/users', userRoutes);
+
+const { authenticateToken } = require('./Middleware/jws');
+
+app.get('/protected-route', authenticateToken, (req, res) => {
+    res.send('This is a protected route');
+});
