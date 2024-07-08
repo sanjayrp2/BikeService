@@ -25,8 +25,8 @@ export default function Login() {
       if (response.data.status === 'ok') {
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('role', response.data.role);
-        localStorage.setItem('user', JSON.stringify(response.data.data));
-        setRole(response.data.role);
+        localStorage.setItem('email', response.data.email);
+        setRole(response.data.role);  
         navigate('/');
       } else {
         setError('Invalid email or password');

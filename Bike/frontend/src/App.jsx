@@ -2,11 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import userRoutes from './Route/userRoutes';
 import adminRoutes from './Route/adminRoutes';
-import ProtectedRoute from './ProtectedRoute';
 import Login from './Pages/Login';
-import Home from './Pages/Home/Home';
 import NotFound from './Pages/NotFound';
-import AddBookingForm from './Pages/AddBooking';
 import {RoleContext } from './Context/RoleContext'
 
 
@@ -29,8 +26,7 @@ function App() {
           <Route 
             key={index}
             path={route.path}
-            element={route.element
-            }
+            element={route.element}
           />
         ))}
         {role === 'admin' && adminRoutes.map((route, index) => (

@@ -10,7 +10,7 @@ const adminRoutes = [
     { path: '/', element: <Home /> },
     { path: '/allservices', element: <AllService /> },
     { path: '/addservices', element: <AddService /> },
-    { path: '/seeallbookings', element: <AllBooking /> },
+    { path: '/allbookings', element: <AllBooking /> },
     { path: '*', element: <PageNotFound /> },
 ];
 

@@ -9,12 +9,11 @@ app.use(cors());
 const mogoDburl = "mongodb://127.0.0.1:27017/BikeService";
 
 //Database Connection
-mongoose.connect(mogoDburl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => {
+mongoose.connect(mogoDburl)
+.then(() => {
     console.log("Connected to database");
-}).catch((e) => console.log(e));
+})
+.catch((e) => console.log(e));
 
 app.listen(5000, () => console.log('Server Started'));
 

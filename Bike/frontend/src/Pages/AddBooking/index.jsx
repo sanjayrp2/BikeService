@@ -163,7 +163,6 @@ const AddBookingForm = () => {
                             variant="outlined"
                             label="Service Needed"
                             placeholder="Select services"
-                            fullWidth
                             margin='normal'
                             className='md:col-span-2'
                         />

@@ -1,14 +1,12 @@
 const admin =[
-    {link:'/allservices' ,name:'service'},
-    {link:'/addservices',name:'addservice'},
-    {link:'/seeallbookings',name:'allbooking'}
+    {link:'/allservices' ,name:'Service'},
+    {link:'/addservices',name:'Addservice'},
+    {link:'/allbookings',name:'Allbooking'}
 ]
 const user=[
-    {link:'/addbooking',name:'addbooking'},
-    {link:'/allbooking',name:'allbooking'},
-    {link:'/history',name:'bookinghistory'},
-    {link:'/allservices' ,name:'service'},
-    {link:'/login',name:'logout'}
+    {link:'/allbooking',name:'Allbooking'},
+    {link:'/history',name:'Bookinghistory'},
+    {link:'/allservices' ,name:'Service'},
 ]
 
 const RouteLink = {admin,user};
