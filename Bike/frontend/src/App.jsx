@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from './Pages/Login';
 import Home from './Pages/Home/Home';
 import SignUp from './Pages/SignUp';
@@ -10,7 +10,7 @@ import BookingHistory from './Pages/BookingHistory';
 
 function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Home />} />
@@ -21,7 +21,7 @@ function App() {
         <Route path='/allbooking' element={<AllBooking/>}/>
         <Route path='/bookings' element={<BookingHistory/>}/>
       </Routes>
-    </Router>
+    </BrowserRouter>
     
   );
 }
