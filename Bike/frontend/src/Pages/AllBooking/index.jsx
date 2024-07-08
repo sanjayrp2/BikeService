@@ -10,38 +10,87 @@ export default function AllBooking() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
+  const[refresh,setRefresh]=useState(true);
   const navigate = useNavigate();
   useAuth();
 
+  const loadRefresh=()=>{
+    setRefresh(!refresh)
+  }
   useEffect(() => {
-    const fetchBookings = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/admin/seeallbooking');
-        if (response.data.status === 'OK') {
-          setBookings(response.data.data);
-          navigate('/allbooking');
-        } else {
-          setError('Failed to fetch bookings');
-        }
-      } catch (error) {
-        setError('An error occurred while fetching bookings');
-      } finally {
-        setLoading(false);
-      }
-    };
+    fetchAllBookings();
+  }, [refresh]);
 
-    fetchBookings();
-  }, []);
+  const fetchAllBookings = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get('http://localhost:5000/admin/seeallbooking');
+      if (response.data.status === 'OK') {
+        setBookings(response.data.data);
+      } else {
+        setError('Failed to fetch bookings');
+      }
+    } catch (error) {
+      setError('An error occurred while fetching bookings');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchBookingsByVnum = async (vno) => {
+    setLoading(true);
+    try {
+      const response = await axios.post('http://localhost:5000/bookings/searchvnum', { vno });
+      if (response.data.status === 'OK') {
+        setBookings(response.data.data);
+      } else {
+        setError('Failed to fetch bookings');
+      }
+    } catch (error) {
+      setError('An error occurred while fetching bookings');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchTerm.trim() !== '') {
+      fetchBookingsByVnum(searchTerm);
+    } else {
+      fetchAllBookings();
+    }
+  };
 
   return (
     <>
       <Navbar />
       <div className="">
         <div className="mt-4">
-
           <h2 className="text-2xl font-bold text-center text-orange-600 mb-2">Bookings List</h2>
-          <div className='flex justify-end items-center mb-4'>
-            <Button variant="contained" sx={{ backgroundColor: '#0C97BF', mt: 2 }} type='submit' className='md:col-span-2' onClick={() => { navigate('/addbooking') }}>Add Booking</Button>
+          <div className='flex justify-between items-center mb-4'>
+            <form onSubmit={handleSearchSubmit} className='flex'>
+              <TextField
+                label="Search by Vehicle Number"
+                variant="outlined"
+                value={searchTerm}
+                onChange={handleSearchChange}
+                sx={{ marginRight: 2}}
+              />
+              <Button variant="contained" sx={{ backgroundColor: '#0C97BF',mt:2 }} type='submit'>
+                Search
+              </Button>
+            </form>
+            <Button variant="contained" sx={{ backgroundColor: '#0C97BF' }}onClick={loadRefresh}>Refresh</Button>
+            
+            <Button variant="contained" sx={{ backgroundColor: '#0C97BF', mt: 2 }} className='md:col-span-2' onClick={() => { navigate('/addbooking') }}>
+              Add Booking
+            </Button>
           </div>
           {loading ? (
             <p className="text-center">Loading...</p>
@@ -62,6 +111,8 @@ export default function AllBooking() {
                     <th className="py-2 px-4 border-b">Address</th>
                     <th className="py-2 px-4 border-b">Status</th>
                     <th className="py-2 px-4 border-b">Service</th>
+                    <th className="py-2 px-4 border-b">updatestatus</th>
+                    
                   </tr>
                 </thead>
                 <tbody>
@@ -77,6 +128,7 @@ export default function AllBooking() {
                       <td className="py-2 px-4 border-b">{booking.address}</td>
                       <td className="py-2 px-4 border-b">{booking.status}</td>
                       <td className="py-2 px-4 border-b">{booking.service.join(', ')}</td>
+                      <Button variant="contained" sx={{ backgroundColor: '#0C97BF' }} type='submit'>status</Button>
                     </tr>
                   ))}
                 </tbody>

@@ -5,7 +5,6 @@ import adminRoutes from './Route/adminRoutes';
 import ProtectedRoute from './ProtectedRoute';
 import Login from './Pages/Login';
 import Home from './Pages/Home/Home';
-import NotFound from './Pages/NotFound';
 
 
 function App() {
@@ -20,10 +19,7 @@ function App() {
           <Route 
             key={index}
             path={route.path}
-            element={
-              <ProtectedRoute allowedRoles={['user']}>
-                {route.element}
-              </ProtectedRoute>
+            element={route.element
             }
           />
         ))}
@@ -32,13 +28,12 @@ function App() {
             key={index}
             path={route.path}
             element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                {route.element}
-              </ProtectedRoute>
+              
+                route.element
             }
           />
         ))}
-        <Route path='*' element={<NotFound/>}/>
+        
       </Routes>
     </Router>
   );

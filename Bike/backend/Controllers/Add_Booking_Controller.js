@@ -7,8 +7,8 @@ let transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
     auth: {
-        user: 'brakebuddy8@gmail.com',
-        pass: 'hnnr zczr gddl dqja'
+        user: 'bikehub222@gmail.com',
+        pass: 'afio eicm hvhl qlcp'
     }
 });
 
@@ -32,8 +32,8 @@ module.exports.AddBooking = async (req, res) => {
         
         const newBooking = await CBooking.create({ date, name, email, phone, vname, vno, vmodel, address, status, service });
         let mailOptionsOwner = {
-            from: 'brakebuddy8@gmail.com',
-            to: 'brakebuddy8@gmail.com',
+            from: 'bikehub222@gmail.com',
+            to: 'bikehub222@gmail.com',
             subject: 'New Booking',
             text: `A new service booking has been made by ${name} for vehicle ${vname} (${vno}) on ${date}.`
         };
@@ -84,6 +84,17 @@ module.exports.FetchAllBooking = async (req, res) => {
         res.status(500).send({ status: "error", message: "Internal server error" });
     }
 };
+module.exports.SearchVnum = async (req, res) => {
+    const { vno } = req.body;
+    console.log(req.body);
+    try {
+        const data = await CBooking.find({ vno:vno });
+        res.send({ status: "OK", data: data });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ status: "error", message: "Internal server error" });
+    }
+};
 
 module.exports.BookingDetails = async (req, res) => {
     const { _id } = req.body;
@@ -103,7 +114,7 @@ module.exports.UpdateBooking = async (req, res) => {
 
         if (status === "Completed") {
             let mailOptionsUser = {
-                from: 'brakebuddy8@gmail.com',
+                from: 'bikehub222@gmail.com',
                 to: email,
                 subject: 'Booking Update',
                 text: 'Service for your vehicle is completed. Please pick up your vehicle.\nHappy and safe ride!'

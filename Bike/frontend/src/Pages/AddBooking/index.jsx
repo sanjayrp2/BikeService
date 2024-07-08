@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { TextField, Button } from '@mui/material';
+import { TextField, Button, Autocomplete, Box } from '@mui/material';
 import Navbar from '../../Component/Navbar';
 
 const AddBookingForm = () => {
+    const [services, setServices] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
     const [formData, setFormData] = useState({
         date: '',
         name: '',
@@ -13,7 +16,7 @@ const AddBookingForm = () => {
         vno: '',
         vmodel: '',
         address: '',
-        service: ''
+        service: []
     });
 
     useEffect(() => {
@@ -30,6 +33,10 @@ const AddBookingForm = () => {
         setFormData({ ...formData, [name]: value });
     };
 
+    const handleServiceChange = (event, newValue) => {
+        setFormData({ ...formData, service: newValue });
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -42,6 +49,25 @@ const AddBookingForm = () => {
         }
     };
 
+    useEffect(() => {
+        const fetchServices = async () => {
+            try {
+                const response = await axios.get('http://localhost:5000/services/allservices');
+                if (response.data.status === 'OK') {
+                    setServices(response.data.data);
+                } else {
+                    setError('Failed to fetch services');
+                }
+            } catch (error) {
+                setError('An error occurred while fetching services');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchServices();
+    }, []);
+
     return (
         <>
         <Navbar/>
@@ -49,7 +75,8 @@ const AddBookingForm = () => {
             Book your Vehicle
         </div>
         <div className='flex flex-col justify-center items-center w-full px-4 md:px-0'>
-            <form className='w-full max-w-md grid grid-cols-1 md:grid-cols-2 gap-4 shadow-lg p-6 bg-white rounded-lg' onSubmit={handleSubmit}>
+            <form className=' shadow-lg p-6 bg-white rounded-lg max-w-[30%]' onSubmit={handleSubmit}>
+                <div className='w-full max-w-md grid grid-cols-1 md:grid-cols-2 gap-4'>
                 <TextField
                     type='text'
                     label='Your Name'
@@ -122,24 +149,36 @@ const AddBookingForm = () => {
                     rows={4}
                     className='md:col-span-2'
                 />
-                <TextField
-                    type='text'
-                    label='Service Needed'
-                    name='service'
+                 </div>
+                <Autocomplete
+                    multiple
+                    id="service-dropdown"
+                    options={services}
+                    getOptionLabel={(option) => option.sname}
                     value={formData.service}
-                    onChange={handleChange}
-                    fullWidth
-                    required
-                    margin='normal'
-                    className='md:col-span-2'
+                    onChange={handleServiceChange}
+                    renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            variant="outlined"
+                            label="Service Needed"
+                            placeholder="Select services"
+                            fullWidth
+                            margin='normal'
+                            className='md:col-span-2'
+                        />
+                    )}
+                    sx={{ width: '100%', '.MuiAutocomplete-listbox': { maxHeight: 300 } }}
+                    ListboxProps={{ style: { maxHeight: '200px' } }}
                 />
+                <div className='flex justify-center items-center'>
                 <Button variant="contained" sx={{ backgroundColor: '#0C97BF', mt: 2 }} type='submit' className='md:col-span-2'>
                     Add Booking
                 </Button>
+                </div>
             </form>
         </div>
         </>
-
     );
 };
 
