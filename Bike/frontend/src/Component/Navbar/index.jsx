@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Bklogo } from '../../Assets';
+import useAuth from '../../Hooks/auth';
 
 const Navbar = () => {
   const logout = () => {
@@ -9,6 +10,7 @@ const Navbar = () => {
     localStorage.removeItem('user');
     window.location.href = '/login';
   };
+  useAuth();
 
   return (
     <nav className="bg-[#0C97BF] p-4">

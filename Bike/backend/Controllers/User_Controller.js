@@ -29,7 +29,7 @@ module.exports.UserLogin = async (req, res) => {
 
         const valid = await bcrypt.compare(password, user.pass);
         if (valid) {
-            const token = jwt.sign({ id: user._id, role: role }, SECRET_KEY);
+            const token = jwt.sign({ id: user._id, role: role }, SECRET_KEY,{ expiresIn: '8h' });
             return res.json({ status: "ok", role: role, data: user,token:token });
         } else {
             return res.json({ status: "error", error: "Invalid Password" });

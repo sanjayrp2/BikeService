@@ -1,28 +1,46 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import userRoutes from './Route/userRoutes';
+import adminRoutes from './Route/adminRoutes';
+import ProtectedRoute from './ProtectedRoute';
 import Login from './Pages/Login';
 import Home from './Pages/Home/Home';
-import SignUp from './Pages/SignUp';
-import AddBooking from './Pages/AddBooking';
-import AddService from './Pages/AddServices';
-import AllService from './Pages/AllServices';
-import AllBooking from './Pages/AllBooking';
-import BookingHistory from './Pages/BookingHistory';
+import NotFound from './Pages/NotFound';
+
 
 function App() {
+  const role = localStorage.getItem('role');
+
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/" element={<Home />} />
-        <Route path='/signup' element={<SignUp/>}/>
-        <Route path='/addbooking' element={<AddBooking/>}/>
-        <Route path='/addservice' element={<AddService/>}/>
-        <Route path='/allservice' element={<AllService/>}/>
-        <Route path='/allbooking' element={<AllBooking/>}/>
-        <Route path='/bookings' element={<BookingHistory/>}/>
+        <Route path="/login" element={<Login/>} />
+        <Route path='/' element={<Home/>}/>
+        {role === 'user' && userRoutes.map((route, index) => (
+          <Route 
+            key={index}
+            path={route.path}
+            element={
+              <ProtectedRoute allowedRoles={['user']}>
+                {route.element}
+              </ProtectedRoute>
+            }
+          />
+        ))}
+        {role === 'admin' && adminRoutes.map((route, index) => (
+          <Route 
+            key={index}
+            path={route.path}
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                {route.element}
+              </ProtectedRoute>
+            }
+          />
+        ))}
+        <Route path='*' element={<NotFound/>}/>
       </Routes>
-    </BrowserRouter>
-    
+    </Router>
   );
 }
 
