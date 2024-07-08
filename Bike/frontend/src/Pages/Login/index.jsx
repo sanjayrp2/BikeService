@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import TextField from '@mui/material/TextField';
 import { BikeLogin } from '../../Assets';
 import { FaUser, FaLock } from "react-icons/fa";
@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import axios from 'axios';
 import './index.css';
 import { useNavigate } from 'react-router-dom';
+import {RoleContext } from '../../Context/RoleContext'
 
 export default function Login() {
   const [uname, setUname] = useState('');
@@ -13,6 +14,7 @@ export default function Login() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { setRole } = useContext(RoleContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -24,6 +26,7 @@ export default function Login() {
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('role', response.data.role);
         localStorage.setItem('user', JSON.stringify(response.data.data));
+        setRole(response.data.role);
         navigate('/');
       } else {
         setError('Invalid email or password');
@@ -40,7 +43,6 @@ export default function Login() {
       setError('Email and password are required.');
       return false;
     }
-    // Add more validation if needed (e.g., email format, password strength)
     return true;
   };
 
