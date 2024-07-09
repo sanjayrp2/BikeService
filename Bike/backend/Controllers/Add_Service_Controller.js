@@ -42,6 +42,7 @@ module.exports.FetchServices = async (req, res) => {
 //Update A Service
 module.exports.UpdateServices = async (req, res) => {
     var { _id,sname,sdesc,samount } = req.body;
+    console.log(req.body);
     if (!_id ) {
         return res.status(400).send({ status: "ERROR", message: "Invalid data or missing _id" });
     }

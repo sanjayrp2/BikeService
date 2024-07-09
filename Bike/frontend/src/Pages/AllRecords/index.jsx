@@ -19,7 +19,7 @@ export default function AllRecords() {
   const fetchAllBookings = async () => {
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:5000/bookings/allbookings',{email:email});
+      const response = await axios.post('http://localhost:5000/bookings/pending',{email:email});
       if (response.data.status === 'OK') {
         setBookings(response.data.data);
       } else {

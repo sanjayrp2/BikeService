@@ -61,7 +61,7 @@ export default function AddService() {
             />
           </div>
           <Button variant="contained" sx={{ backgroundColor: '#0C97BF', mt: 2 }} type='submit' className='md:col-span-2'>
-                    Add Booking
+                    Add Services
                 </Button>
         </form>
         {/* {status && <p className="mt-4 text-center text-gray-700">{status}</p>} */}

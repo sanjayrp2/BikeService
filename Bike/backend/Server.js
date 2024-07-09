@@ -27,7 +27,7 @@ app.use('/bookings', bookingRoutes);
 app.use('/services', serviceRoutes);
 app.use('/users', userRoutes);
 
-const { authenticateToken } = require('./Middleware/jws');
+const { authenticateToken } = require('./Middleware/jwt');
 
 app.get('/protected-route', authenticateToken, (req, res) => {
     res.send('This is a protected route');

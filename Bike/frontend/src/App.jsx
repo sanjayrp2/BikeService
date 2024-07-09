@@ -5,6 +5,7 @@ import adminRoutes from './Route/adminRoutes';
 import Login from './Pages/Login';
 import NotFound from './Pages/NotFound';
 import {RoleContext } from './Context/RoleContext'
+import SignUp from './Pages/SignUp';
 
 
 
@@ -22,6 +23,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path ="/signup" element = {<SignUp/>}/>
         {role === 'user' && userRoutes.map((route, index) => (
           <Route 
             key={index}

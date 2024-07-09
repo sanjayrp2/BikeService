@@ -3,21 +3,24 @@ import axios from 'axios';
 import { TextField, Button } from '@mui/material';
 import Navbar from '../../Component/Navbar';
 import { useNavigate } from 'react-router-dom';
-
 import useAuth from '../../Hooks/auth';
+import Table from '../../Component/Table';
 
 export default function AllBooking() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-  const[refresh,setRefresh]=useState(true);
+  const [refresh, setRefresh] = useState(true);
   const navigate = useNavigate();
   useAuth();
 
-  const loadRefresh=()=>{
-    setRefresh(!refresh)
+
+
+  const loadRefresh = () => {
+    setRefresh(!refresh);
   }
+
   useEffect(() => {
     fetchAllBookings();
   }, [refresh]);
@@ -67,6 +70,8 @@ export default function AllBooking() {
     }
   };
 
+
+
   return (
     <>
       <Navbar />
@@ -80,14 +85,13 @@ export default function AllBooking() {
                 variant="outlined"
                 value={searchTerm}
                 onChange={handleSearchChange}
-                sx={{ marginRight: 2}}
+                sx={{ marginRight: 2 }}
               />
-              <Button variant="contained" sx={{ backgroundColor: '#0C97BF',mt:2 }} type='submit'>
+              <Button variant="contained" sx={{ backgroundColor: '#0C97BF', mt: 2 }} type='submit'>
                 Search
               </Button>
             </form>
-            <Button variant="contained" sx={{ backgroundColor: '#0C97BF' }}onClick={loadRefresh}>Refresh</Button>
-            
+            <Button variant="contained" sx={{ backgroundColor: '#0C97BF' }} onClick={loadRefresh}>Refresh</Button>
             <Button variant="contained" sx={{ backgroundColor: '#0C97BF', mt: 2 }} className='md:col-span-2' onClick={() => { navigate('/addbooking') }}>
               Add Booking
             </Button>
@@ -111,25 +115,12 @@ export default function AllBooking() {
                     <th className="py-2 px-4 border-b">Address</th>
                     <th className="py-2 px-4 border-b">Status</th>
                     <th className="py-2 px-4 border-b">Service</th>
-                    <th className="py-2 px-4 border-b">updatestatus</th>
-                    
+                    <th className="py-2 px-4 border-b">Update Status</th>
                   </tr>
                 </thead>
                 <tbody>
                   {bookings.map((booking) => (
-                    <tr key={booking._id}>
-                      <td className="py-2 px-4 border-b">{booking.date}</td>
-                      <td className="py-2 px-4 border-b">{booking.name}</td>
-                      <td className="py-2 px-4 border-b">{booking.email}</td>
-                      <td className="py-2 px-4 border-b">{booking.phone}</td>
-                      <td className="py-2 px-4 border-b">{booking.vname}</td>
-                      <td className="py-2 px-4 border-b">{booking.vno}</td>
-                      <td className="py-2 px-4 border-b">{booking.vmodel}</td>
-                      <td className="py-2 px-4 border-b">{booking.address}</td>
-                      <td className="py-2 px-4 border-b">{booking.status}</td>
-                      <td className="py-2 px-4 border-b">{booking.service.join(', ')}</td>
-                      <Button variant="contained" sx={{ backgroundColor: '#0C97BF' }} type='submit'>status</Button>
-                    </tr>
+                    <Table booking = {booking}/>
                   ))}
                 </tbody>
               </table>

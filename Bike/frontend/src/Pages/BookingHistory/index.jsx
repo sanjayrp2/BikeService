@@ -6,11 +6,12 @@ export default function BookingHistory() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const email = localStorage.getItem('email');
 
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const response = await axios.post('http://localhost:5000/bookings/history', { email:"lingashkumaar777@gmail.com"});
+        const response = await axios.post('http://localhost:5000/bookings/history', { email:email});
         console.log(response);
         if (response.data.status === 'OK') {
           setBookings(response.data.data);

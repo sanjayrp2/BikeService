@@ -5,6 +5,7 @@ import BookingHistory from '../Pages/BookingHistory';
 import PageNotFound from '../Pages/NotFound';
 import Home from '../Pages/Home/Home';
 import AllRecords from '../Pages/AllRecords';
+import AllService from '../Pages/AllServices';
 
 
 const userRoutes = [
@@ -12,7 +13,7 @@ const userRoutes = [
   { path: '/addbooking', element: <AddBookingForm /> },
   { path: '/allbooking', element: <AllRecords/> },
   { path: '/history', element: <BookingHistory /> },
-  { path: '/history', element: <BookingHistory /> },
+  { path: '/allservices', element: <AllService/> },
   { path: '*', element: <PageNotFound /> },
 
 
