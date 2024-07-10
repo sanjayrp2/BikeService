@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Navbar from '../../Component/Navbar';
-import { home } from '../../Assets'; 
+import { home } from '../../Assets';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -8,6 +8,7 @@ import useAuth from '../../Hooks/auth';
 
 export default function Home() {
   const navigate = useNavigate();
+  const role = localStorage.getItem('role');
   useAuth();
   return (
     <div>
@@ -16,19 +17,49 @@ export default function Home() {
         <div className=' w-full md:w-1/2'>
           <img src={home} alt="Home Image" className='object-contain'></img>
         </div>
-        <div className='flex flex-col justify-center items-center  w-full md:w-1/2 gap-11'>
-        <div>
-        <h1 className='text-5xl text-orange-600 font-bold'>Book Now !</h1>
-        </div>
-          <div className='max-w-md text-center lg:text-left'>
-            <p className='mb-4'>Welcome to our bike service booking page! Whether you need a routine check-up or urgent repairs, we're here to help. Simply fill out the form below to schedule your service appointment. Our experienced team will ensure your bike is in top condition for your next adventure. Ride safe with our reliable bike service!</p>
-            <div className='flex justify-center items-center'>
-              <Button variant="contained" sx={{ backgroundColor: "#0C97BF" }} onClick={()=>{navigate('/addbooking')}}>
-                Add Booking
-              </Button>
-            </div>
-          </div>
-        </div>
+
+        {
+          role === 'admin' ? (
+            <><div className='flex flex-col justify-center items-center  w-full md:w-1/2 gap-11'>
+
+              <div>
+                <h1 className='text-5xl text-orange-600 font-bold'>Service now!</h1>
+              </div>
+
+              <div className='max-w-md text-center lg:text-left'>
+
+                <p className='mb-4'>
+                  The admin can now access the server page to easily add new services 🔧. Manage and update service offerings with just a few clicks!👇..</p>
+                <div className='flex justify-center items-center'>
+                  <Button variant="contained" sx={{ backgroundColor: "#0C97BF" }} onClick={() => { navigate('/addservices') }}>
+                    Add Services
+                  </Button>
+                </div>
+              </div></div>
+            </>
+
+          ) : (
+            <>
+              <div className='flex flex-col justify-center items-center  w-full md:w-1/2 gap-11'>
+
+                <div>
+                  <h1 className='text-5xl text-orange-600 font-bold'>Book Now !</h1>
+                </div>
+
+                <div className='max-w-md text-center lg:text-left'>
+                  <p className='mb-4'>Welcome to our bike service booking page! 🏍 Whether you need a routine check-up or urgent repairs 🕰, we're here to help. Simply fill out the form below to schedule your service appointment. Our experienced team will ensure your bike is in top condition for your next adventure. Ride safe with our reliable bike service!🏍..</p>
+                  <div className='flex justify-center items-center'>
+                    <Button variant="contained" sx={{ backgroundColor: "#0C97BF" }} onClick={() => { navigate('/addbooking') }}>
+                      Add Booking
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </>
+
+          )
+
+        }
       </div>
     </div>
   );

@@ -2,19 +2,23 @@ import React, { useState } from 'react';
 import { TextField, Button } from '@mui/material';
 import axios from 'axios';
 import Navbar from '../../Component/Navbar';
+import { useNavigate } from 'react-router-dom';
 
 export default function AddService() {
   const [sname, setSname] = useState('');
   const [sdesc, setSdesc] = useState('');
   const [samount, setSamount] = useState('');
   const [status, setStatus] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:5000/services/addservices', { sname, sdesc, samount });
       if (response.data.status === 'ok') {
+        
         setStatus('Service added successfully');
+        navigate('/allservices');
         // onServiceAdded(); // Trigger a refresh of the service list
       } else {
         setStatus('Service already exists');

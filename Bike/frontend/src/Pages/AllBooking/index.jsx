@@ -92,9 +92,6 @@ export default function AllBooking() {
               </Button>
             </form>
             <Button variant="contained" sx={{ backgroundColor: '#0C97BF' }} onClick={loadRefresh}>Refresh</Button>
-            <Button variant="contained" sx={{ backgroundColor: '#0C97BF', mt: 2 }} className='md:col-span-2' onClick={() => { navigate('/addbooking') }}>
-              Add Booking
-            </Button>
           </div>
           {loading ? (
             <p className="text-center">Loading...</p>
@@ -105,7 +102,8 @@ export default function AllBooking() {
               <table className="min-w-full bg-white">
                 <thead>
                   <tr>
-                    <th className="py-2 px-4 border-b">Date</th>
+                    <th className="py-2 px-4 border-b">Update Status</th>
+                    <th className="py-2 px-4 border-b ">Date</th>
                     <th className="py-2 px-4 border-b">Name</th>
                     <th className="py-2 px-4 border-b">Email</th>
                     <th className="py-2 px-4 border-b">Phone</th>
@@ -115,12 +113,11 @@ export default function AllBooking() {
                     <th className="py-2 px-4 border-b">Address</th>
                     <th className="py-2 px-4 border-b">Status</th>
                     <th className="py-2 px-4 border-b">Service</th>
-                    <th className="py-2 px-4 border-b">Update Status</th>
                   </tr>
                 </thead>
                 <tbody>
                   {bookings.map((booking) => (
-                    <Table booking = {booking}/>
+                    <Table booking = {booking} refresh={refresh} setRefresh={setRefresh}/>
                   ))}
                 </tbody>
               </table>

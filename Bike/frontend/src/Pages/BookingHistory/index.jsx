@@ -43,14 +43,14 @@ export default function BookingHistory() {
               <table className="min-w-full bg-white border border-gray-300">
                 <thead>
                   <tr>
-                    <th className="py-2 px-4 border-b">Date</th>
+                    <th className="py-2 px-4 border-b min-w-[150px]">Date</th>
                     <th className="py-2 px-4 border-b">Name</th>
                     <th className="py-2 px-4 border-b">Email</th>
                     <th className="py-2 px-4 border-b">Phone</th>
                     <th className="py-2 px-4 border-b">Vehicle Name</th>
-                    <th className="py-2 px-4 border-b">Vehicle Number</th>
+                    <th className="py-2 px-4 border-b min-w-[150px]">Vehicle Number</th>
                     <th className="py-2 px-4 border-b">Vehicle Model</th>
-                    <th className="py-2 px-4 border-b">Address</th>
+                    <th className="py-2 px-4 border-b min-w-[150px]">Address</th>
                     <th className="py-2 px-4 border-b">Status</th>
                     <th className="py-2 px-4 border-b">Service</th>
                   </tr>

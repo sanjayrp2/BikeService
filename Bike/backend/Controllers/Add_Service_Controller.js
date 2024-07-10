@@ -64,8 +64,14 @@ module.exports.DeleteServices = async (req, res) => {
     const { _id } = req.body;
     try {
         const data = await AService.deleteOne({ _id: _id });
-        res.send({ status: "OK", data: data });
+        if (data.deletedCount === 1) {
+            res.send({ status: "OK", data: data });
+        } else {
+            res.send({ status: "FAILED", message: "Service not found" });
+        }
     } catch (error) {
         console.log(error);
+        res.status(500).send({ status: "ERROR", message: "An error occurred while deleting the service" });
     }
 };
+

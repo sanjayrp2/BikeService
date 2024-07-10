@@ -4,18 +4,19 @@ import { TextField, Button } from '@mui/material';
 import Navbar from '../../Component/Navbar';
 import { useNavigate } from 'react-router-dom';
 
-import useAuth from '../../Hooks/auth';
 
 export default function AllRecords() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const email = localStorage.getItem('email');
+  console.log(email);
 
   useEffect(() => {
     fetchAllBookings();
   }, []);
-  const email = localStorage.getItem('email');
+
   const fetchAllBookings = async () => {
     setLoading(true);
     try {
@@ -55,14 +56,14 @@ export default function AllRecords() {
               <table className="min-w-full bg-white">
                 <thead>
                   <tr>
-                    <th className="py-2 px-4 border-b">Date</th>
+                    <th className="py-2 px-4 border-b min-w-[150px]">Date</th>
                     <th className="py-2 px-4 border-b">Name</th>
                     <th className="py-2 px-4 border-b">Email</th>
                     <th className="py-2 px-4 border-b">Phone</th>
                     <th className="py-2 px-4 border-b">Vehicle Name</th>
-                    <th className="py-2 px-4 border-b">Vehicle Number</th>
+                    <th className="py-2 px-4 border-b min-w-[150px]">Vehicle Number</th>
                     <th className="py-2 px-4 border-b">Vehicle Model</th>
-                    <th className="py-2 px-4 border-b">Address</th>
+                    <th className="py-2 px-4 border-b min-w-[150px]">Address</th>
                     <th className="py-2 px-4 border-b">Status</th>
                     <th className="py-2 px-4 border-b">Service</th>
                     

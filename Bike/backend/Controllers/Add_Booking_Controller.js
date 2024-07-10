@@ -8,7 +8,7 @@ let transporter = nodemailer.createTransport({
     port: 465,
     auth: {
         user: 'bikehub222@gmail.com',
-        pass: 'afio eicm hvhl qlcp'
+        pass: 'qqfb gelx nzuc kgwz'
     }
 });
 
@@ -17,25 +17,22 @@ module.exports.AddBooking = async (req, res) => {
     const status = "Pending";
 
     try {
-        const existingBooking = await CBooking.findOne({ date: date, vno: vno });
-        if (existingBooking) {
-            return res.send({ status: "exist" });
-        }
+       
         const activeBooking = await CBooking.findOne({ vno: vno, status: { $in: ["Pending", "Ready"] } });
         if (activeBooking) {
             return res.send({ status: "NotCompleted" });
         }
-        const emailBooking = await User.findOne({ $or: [{ email: email }, { phone: phone }] });
+        const emailBooking = await User.findOne({  email: email  });
         if (!emailBooking) {
             return res.send({ status: "Email not exist" });
         }
-        
+
         const newBooking = await CBooking.create({ date, name, email, phone, vname, vno, vmodel, address, status, service });
         let mailOptionsOwner = {
             from: 'bikehub222@gmail.com',
             to: 'bikehub222@gmail.com',
             subject: 'New Booking',
-            text: `A new service booking has been made by ${name} for vehicle ${vname} (${vno}) on ${date}.`
+            text: `A new service booking has been made by Email: ${email} Phone:${phone} ${name} for vehicle ${vname} (${vno}) on ${date}.`
         };
         transporter.sendMail(mailOptionsOwner, (error, info) => {
             if (error) {
@@ -88,7 +85,7 @@ module.exports.SearchVnum = async (req, res) => {
     const { vno } = req.body;
     console.log(req.body);
     try {
-        const data = await CBooking.find({ vno:vno });
+        const data = await CBooking.find({ vno: vno });
         res.send({ status: "OK", data: data });
     } catch (error) {
         console.log(error);
@@ -108,16 +105,31 @@ module.exports.BookingDetails = async (req, res) => {
 };
 
 module.exports.UpdateBooking = async (req, res) => {
-    const { _id, status, email } = req.body;
+    const { _id, status, email,vno } = req.body;
     try {
         var data = await CBooking.updateOne({ _id: _id }, { $set: { status: status } });
 
-        if (status === "Completed") {
+        
+        if (status === "ready") {
             let mailOptionsUser = {
                 from: 'bikehub222@gmail.com',
                 to: email,
                 subject: 'Booking Update',
-                text: 'Service for your vehicle is completed. Please pick up your vehicle.\nHappy and safe ride!'
+                text: `Service for your vehicle(${vno}) is Ready🎉. Please pick up your vehicle.\nHappy and safe ride!🏍️💨`
+            };
+            transporter.sendMail(mailOptionsUser, (error, info) => {
+                if (error) {
+                    return console.log(`Error sending email to user: ${error}`);
+                }
+                console.log('Email sent to user: %s', info.messageId);
+            });
+        }
+        if (status === "completed") {
+            let mailOptionsUser = {
+                from: 'bikehub222@gmail.com',
+                to: email,
+                subject: 'Booking Update',
+                text: `Service for your vehicle (${vno}) is completed🎉. Please pick up your vehicle.\nHappy and safe ride!🏍️💨`
             };
             transporter.sendMail(mailOptionsUser, (error, info) => {
                 if (error) {

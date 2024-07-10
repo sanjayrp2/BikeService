@@ -1,10 +1,12 @@
 import { Autocomplete, Button, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import Backdrop from '@mui/material/Backdrop';
+import axios from 'axios';
 
-export default function Table({ booking }) {
+export default function Table({ booking,refresh,setRefresh }) {
     const [selectedStatus, setSelectedStatus] = useState([booking.status]);
     const [open, setOpen] = useState(false);
+    console.log(booking);
 
     const handleClose = () => {
         setOpen(false);
@@ -16,19 +18,15 @@ export default function Table({ booking }) {
 
     const handleConfirm = async () => {
         try {
-            const response = await fetch('/updatestatus', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    id: booking.id, // Assuming booking has an id field
-                    status: selectedStatus,
-                }),
+            const response = await axios.put('http://localhost:5000/bookings/updatestatus', {
+                _id: booking._id, 
+                status: selectedStatus,
+                email : booking.email,
+                vno:booking.vno
             });
 
-            if (response.ok) {
-                // Handle success, e.g., show a notification or update the UI
+            if (response.status === 200) {
+                setRefresh(!refresh);
                 console.log('Status updated successfully');
             } else {
                 // Handle error
@@ -44,22 +42,23 @@ export default function Table({ booking }) {
     return (
         <>
             <tr>
-                <td className="py-2 px-4 border-b">{booking.date}</td>
-                <td className="py-2 px-4 border-b">{booking.name}</td>
-                <td className="py-2 px-4 border-b">{booking.email}</td>
-                <td className="py-2 px-4 border-b">{booking.phone}</td>
-                <td className="py-2 px-4 border-b">{booking.vname}</td>
-                <td className="py-2 px-4 border-b">{booking.vno}</td>
-                <td className="py-2 px-4 border-b">{booking.vmodel}</td>
-                <td className="py-2 px-4 border-b">{booking.address}</td>
-                <td className="py-2 px-4 border-b">{booking.status}</td>
-                <td className="py-2 px-4 border-b">{booking.service.join(' , ')}</td>
-                <td className="py-2 px-4 border-b">
+                <td className="py-2 px-4 border-b min-w-[150px]">
                     {
-                        booking.status !== 'Completed' &&
+                        (booking.status !== 'Completed' && booking.status !== 'completed') &&
                         <Button variant="contained" sx={{ backgroundColor: '#0C97BF' }} onClick={() => setOpen(true)}>Update Status</Button>
                     }
                 </td>
+                <td className="py-2 px-4 border-b min-w-[150px]">{booking.date}</td>
+                <td className="py-2 px-4 border-b">{booking.name}</td>
+                <td className="py-2 px-4 border-b">{booking.email}</td>
+                <td className="py-2 px-4 border-b">{booking.phone}</td>
+                <td className="py-2 px-4 border-b min-w-[150px]">{booking.vname}</td>
+                <td className="py-2 px-4 border-b min-w-[150px]">{booking.vno}</td>
+                <td className="py-2 px-4 border-b">{booking.vmodel}</td>
+                <td className="py-2 px-4 border-b min-w-[150px]">{booking.address}</td>
+                <td className="py-2 px-4 border-b">{booking.status}</td>
+                <td className="py-2 px-4 border-b">{booking.service.join(' , ')}</td>
+
             </tr>
 
             <Backdrop
