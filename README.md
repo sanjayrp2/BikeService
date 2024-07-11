@@ -1,4 +1,4 @@
-# Bike Service Booking Application
+# Bike Service Booking Application🏍️💨🚀
 
 This is the MERN Application stack for managing bike services. It provides a platform for users to schedule bike services, track maintenance and history, and receive email notifications when a customer booked for service and when bike is ready for delivery. Admins can manage services , change the status of bookings, and receive email notifications for each booking.
 
@@ -11,12 +11,12 @@ This is the MERN Application stack for managing bike services. It provides a pla
 - Authentication
   
 ### Bike station owner:
- - View a list of all bookings filtered by status (Pending, Ready, Completed, All)
+ - View a list of all bookings filtered by status (Pending, Ready, Completed, Cancelled)
  - View details of each booking
  - Mark a booking as ready for delivery
  - Mark a booking as completed
  - Receive email notifications whenever a booking is made
-
+ - User Booked but not drop the bike to the service will be Mark as Cancelled
 
 ### Customers
  - Register for an account with email address and mobile number
