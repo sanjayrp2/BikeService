@@ -2,17 +2,25 @@ import React, { useEffect } from 'react';
 import Navbar from '../../Component/Navbar';
 import { home } from '../../Assets';
 import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import useAuth from '../../Hooks/auth';
+import { ToastContainer,toast } from 'react-toastify';
 
 export default function Home() {
   const navigate = useNavigate();
   const role = localStorage.getItem('role');
+  const location = useLocation();
   useAuth();
+  useEffect(() => {
+    if (location.state && location.state.message) {
+        toast.success(location.state.message, { autoClose: 3000 });
+    }
+}, [location.state]);
   return (
     <div>
       <Navbar />
+      <ToastContainer/>
       <div className='flex flex-col lg:flex-row justify-center items-center  lg:space-x-10'>
         <div className=' w-full md:w-1/2'>
           <img src={home} alt="Home Image" className='object-contain'></img>

@@ -44,7 +44,7 @@ export default function Table({ booking,refresh,setRefresh }) {
             <tr>
                 <td className="py-2 px-4 border-b min-w-[150px]">
                     {
-                        (booking.status !== 'Completed' && booking.status !== 'completed') &&
+                        (booking.status !== 'Completed'  && booking.status !== 'Cancel') &&
                         <Button variant="contained" sx={{ backgroundColor: '#0C97BF' }} onClick={() => setOpen(true)}>Update Status</Button>
                     }
                 </td>
@@ -71,7 +71,7 @@ export default function Table({ booking,refresh,setRefresh }) {
                         <div>
                             <Autocomplete
                                 id="status-dropdown"
-                                options={['cancel', 'pending', 'ready', 'completed']}
+                                options={['Cancel', 'Pending', 'Ready', 'Completed']}
                                 getOptionLabel={(option) => option}
                                 value={selectedStatus}
                                 onChange={handleStatusChange}

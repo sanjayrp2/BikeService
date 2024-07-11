@@ -32,9 +32,21 @@ module.exports.AddBooking = async (req, res) => {
             from: 'bikehub222@gmail.com',
             to: 'bikehub222@gmail.com',
             subject: 'New Booking',
-            text: `A new service booking has been made by Email: ${email} Phone:${phone} ${name} for vehicle ${vname} (${vno}) on ${date}.`
+            text: `A new service booking has been made by Email: ${email} \nPhone:${phone}\n Name: ${name} \n for vehicle ${vname} (${vno}) on ${date}.`
         };
+        let mailoptionsforCustomer = {
+            from: 'bikehub222@gmail.com',
+            to: email,
+            subject: 'New Booking',
+            text: `Succesfully Booked! \nVehicleNumber:${vno} \nEmail:${email} \nPhone:${phone}\n Name:${name} for vehicle ${vname} on ${date}.`
+        }
         transporter.sendMail(mailOptionsOwner, (error, info) => {
+            if (error) {
+                return console.log(`Error sending email to owner: ${error}`);
+            }
+            console.log('Email sent to owner: %s', info.messageId);
+        });
+        transporter.sendMail(mailoptionsforCustomer, (error, info) => {
             if (error) {
                 return console.log(`Error sending email to owner: ${error}`);
             }
@@ -110,12 +122,12 @@ module.exports.UpdateBooking = async (req, res) => {
         var data = await CBooking.updateOne({ _id: _id }, { $set: { status: status } });
 
         
-        if (status === "ready") {
+        if (status === "Ready") {
             let mailOptionsUser = {
                 from: 'bikehub222@gmail.com',
                 to: email,
                 subject: 'Booking Update',
-                text: `Service for your vehicle(${vno}) is Ready🎉. Please pick up your vehicle.\nHappy and safe ride!🏍️💨`
+                text: `Service for your vehicle(${vno}) is Ready🎉. Please pick up your vehicle!🏍️💨`
             };
             transporter.sendMail(mailOptionsUser, (error, info) => {
                 if (error) {
@@ -124,12 +136,12 @@ module.exports.UpdateBooking = async (req, res) => {
                 console.log('Email sent to user: %s', info.messageId);
             });
         }
-        if (status === "completed") {
+        if (status === "Completed") {
             let mailOptionsUser = {
                 from: 'bikehub222@gmail.com',
                 to: email,
                 subject: 'Booking Update',
-                text: `Service for your vehicle (${vno}) is completed🎉. Please pick up your vehicle.\nHappy and safe ride!🏍️💨`
+                text: `Service for your vehicle (${vno}) is completed🎉.\nHappy and safe ride!🏍️💨`
             };
             transporter.sendMail(mailOptionsUser, (error, info) => {
                 if (error) {
@@ -138,6 +150,21 @@ module.exports.UpdateBooking = async (req, res) => {
                 console.log('Email sent to user: %s', info.messageId);
             });
         }
+        if (status === "Cancel") {
+            let mailOptionsUser = {
+                from: 'bikehub222@gmail.com',
+                to: email,
+                subject: 'Booking Update',
+                text: `Service for your vehicle (${vno}) Booking is canceled!.`
+            };
+            transporter.sendMail(mailOptionsUser, (error, info) => {
+                if (error) {
+                    return console.log(`Error sending email to user: ${error}`);
+                }
+                console.log('Email sent to user: %s', info.messageId);
+            });
+        }
+        
 
         res.send({ status: "ok", data: data });
     } catch (error) {

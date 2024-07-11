@@ -24,7 +24,6 @@ const AddBookingForm = () => {
     });
 
     useEffect(() => {
-        // Set the current date as the default date
         const currentDate = new Date().toISOString().split('T')[0];
         setFormData((prevFormData) => ({
             ...prevFormData,
@@ -67,8 +66,7 @@ const AddBookingForm = () => {
         try {
             const response = await axios.post('http://localhost:5000/bookings/addbooking', formData);
             if (response.data.status === 'ok') {
-                toast.success('Booking completed!');
-                navigate('/');
+                navigate('/', { state: { message: 'Booking completed!' } });
             } else {
                 toast.error(response.data.message || 'Failed to add booking.');
             }
