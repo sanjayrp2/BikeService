@@ -6,6 +6,10 @@ import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+   //services: Stores the list of available services fetched from the server.
+   //loading: Indicates if data is being loaded.
+   //error: Stores any error messages.
+  //formData: Stores the form input values.
 const AddBookingForm = () => {
     const [services, setServices] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -30,16 +34,17 @@ const AddBookingForm = () => {
             date: currentDate
         }));
     }, []);
-
+    //handleChange: Updates formData when any form field changes.
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
+    //handleServiceChange: Updates the service field in formData when the user selects services from the Autocomplete component.
 
     const handleServiceChange = (event, newValue) => {
         setFormData({ ...formData, service: newValue.map(service => service.sname) });
     };
-
+    //validateForm: Checks if all required fields are filled, validates email and phone formats, and shows error notifications if any validation fails.
     const validateForm = () => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const phoneRegex = /^\d{10}$/;
@@ -75,7 +80,7 @@ const AddBookingForm = () => {
             toast.error('An error occurred while adding the booking. Please try again.');
         }
     };
-
+    //useEffect: Fetches the list of services from the server when the component mounts and updates the services state.
     useEffect(() => {
         const fetchServices = async () => {
             try {

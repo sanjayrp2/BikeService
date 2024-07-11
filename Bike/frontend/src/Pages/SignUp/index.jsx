@@ -16,24 +16,28 @@ export default function SignUp() {
     const navigate = useNavigate();
 
     const validateForm = () => {
+        //Checks if any field is empty and displays an error notification if so.
         if (!email || !phone || !password || !confirmPassword) {
             toast.error('All fields are required.');
             return false;
         }
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        //Checks if the email format is invalid and displays an error notification if so.
         if (!emailRegex.test(email)) {
             toast.error('Invalid email format.');
             return false;
         }
-        const phoneRegex = /^\d{10}$/;
+        const phoneRegex = /^\d{10}$/;//Checks if the phone number format is invalid and displays an error notification if so.
         if (!phoneRegex.test(phone)) {
             toast.error('Phone number must be 10 digits.');
             return false;
         }
-        if (password.length < 6) {
+        if (password.length < 6) //Checks if the password is less than 6 characters long and displays an error notification if so. 
+            {
             toast.error('Password must be at least 6 characters long.');
             return false;
         }
+        //Checks if the passwords do not match and displays an error notification if so.
         if (password !== confirmPassword) {
             toast.error('Passwords do not match.');
             return false;
@@ -47,7 +51,7 @@ export default function SignUp() {
 
         try {
             const response = await axios.post('http://localhost:5000/users/signup', { email, phone, pass: password });
-            if (response.data.status === 'ok') {
+            if (response.data.status === 'ok') {  //Checks if the signup was successful
                 toast.success('Signup successful!');
                 navigate('/');
             } else {

@@ -68,7 +68,7 @@ export default function AddService() {
                     Add Services
                 </Button>
         </form>
-        {/* {status && <p className="mt-4 text-center text-gray-700">{status}</p>} */}
+        
       </div>
     </div>
   </>  

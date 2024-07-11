@@ -4,7 +4,7 @@ import { TextField, Button } from '@mui/material';
 import Navbar from '../../Component/Navbar';
 import { useNavigate } from 'react-router-dom';
 
-
+//The AllRecords component in React displays a list of pending vehicle service bookings for the logged-in user. It fetches data from a server,
 export default function AllRecords() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -12,6 +12,7 @@ export default function AllRecords() {
   const navigate = useNavigate();
   const email = localStorage.getItem('email');
   console.log(email);
+  //Email: Retrieves the logged-in user's email from local storage.
 
   useEffect(() => {
     fetchAllBookings();

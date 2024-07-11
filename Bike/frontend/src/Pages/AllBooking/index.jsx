@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react'; //React and necessary hooks (useEffect, useState)
+import axios from 'axios'; // Axios for HTTP requests
 import { TextField, Button } from '@mui/material';
 import Navbar from '../../Component/Navbar';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../../Hooks/auth';
 import Table from '../../Component/Table';
-
+//State Variables
 export default function AllBooking() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -56,7 +56,7 @@ export default function AllBooking() {
       setLoading(false);
     }
   };
-
+   //Search Form: Allows users to search for bookings by vehicle number.
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };

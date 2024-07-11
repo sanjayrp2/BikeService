@@ -7,9 +7,9 @@ router.post('/addbooking',AddBooking);
 router.post('/history',CompletedBooking);
 router.post('/allbookings', FetchAllBooking);
 router.put('/updatestatus', UpdateBooking);
-router.get('/details', BookingDetails );
+// router.get('/details', BookingDetails );
 router.post('/pending',PendingBooking);
-router.get('/givendate',ParticularDate);
+// router.get('/givendate',ParticularDate);
 router.post('/searchvnum',SearchVnum);
 module.exports=router;
 

@@ -9,12 +9,12 @@ import AllService from '../Pages/AllServices';
 
 
 const userRoutes = [
-  { path: '/', element: <Home /> },
-  { path: '/addbooking', element: <AddBookingForm /> },
-  { path: '/allbooking', element: <AllRecords/> },
-  { path: '/history', element: <BookingHistory /> },
-  { path: '/allservices', element: <AllService/> },
-  { path: '*', element: <PageNotFound /> },
+  { path: '/', element: <Home /> },//The root path of the application.
+  { path: '/addbooking', element: <AddBookingForm /> },//Path for the add bookings page.
+  { path: '/allbooking', element: <AllRecords/> },//Path for the all bookings page.
+  { path: '/history', element: <BookingHistory /> },//Path for the History page.
+  { path: '/allservices', element: <AllService/> },//Path for the All services page.
+  { path: '*', element: <PageNotFound /> },// A wildcard path that matches any route not explicitly defined.
 
 
 ];

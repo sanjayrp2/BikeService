@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from '../../Component/Navbar';
-
+//The BookingHistory component in React is used to display a list of completed bookings for a user.
 export default function BookingHistory() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -11,6 +11,7 @@ export default function BookingHistory() {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
+        //axios.post: Sends a POST request to the server with the user's email to fetch booking history.
         const response = await axios.post('http://localhost:5000/bookings/history', { email:email});
         console.log(response);
         if (response.data.status === 'OK') {
@@ -24,7 +25,7 @@ export default function BookingHistory() {
         setLoading(false);
       }
     };
-
+    //fetchBookings: Asynchronous function to fetch bookings
     fetchBookings();
   }, []);
 

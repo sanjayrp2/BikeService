@@ -4,7 +4,7 @@ import Navbar from '../../Component/Navbar';
 import Card from '../../Component/Card';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-
+//The AllService component in React displays a list of services, allowing administrators to add new services and showing service details using a card component
 export default function AllService() {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -12,7 +12,7 @@ export default function AllService() {
   const role = localStorage.getItem('role');
   const [change, setChange] = useState(true);
   const navigate = useNavigate();
-
+// It handles fetching data from a server, managing loading and error states, and rendering the services in a grid format.
   useEffect(() => {
     const fetchServices = async () => {
       try {

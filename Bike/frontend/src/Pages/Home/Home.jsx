@@ -8,10 +8,11 @@ import useAuth from '../../Hooks/auth';
 import { ToastContainer,toast } from 'react-toastify';
 
 export default function Home() {
-  const navigate = useNavigate();
-  const role = localStorage.getItem('role');
+  const navigate = useNavigate();//Hook for programmatic navigation.
+  const role = localStorage.getItem('role');//Retrieves the user's role from local storage.
   const location = useLocation();
   useAuth();
+  //useEffect: Hook that runs when the component mounts or when location.state changes.
   useEffect(() => {
     if (location.state && location.state.message) {
         toast.success(location.state.message, { autoClose: 3000 });

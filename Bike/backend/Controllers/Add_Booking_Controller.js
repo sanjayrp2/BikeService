@@ -3,6 +3,7 @@ const User = require("../Models/User");
 const nodemailer = require('nodemailer');
 
 // Nodemailer configuration
+//Nodemailer Configuration: Sets up a transporter to send emails using Gmail's SMTP server with the specified email and password.
 let transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
@@ -17,17 +18,20 @@ module.exports.AddBooking = async (req, res) => {
     const status = "Pending";
 
     try {
-       
+        // Check for existing active bookings for the vehicle
         const activeBooking = await CBooking.findOne({ vno: vno, status: { $in: ["Pending", "Ready"] } });
         if (activeBooking) {
             return res.send({ status: "NotCompleted" });
         }
+         // Check if the email exists in the user database
         const emailBooking = await User.findOne({  email: email  });
         if (!emailBooking) {
             return res.send({ status: "Email not exist" });
         }
-
+         // Create a new booking
         const newBooking = await CBooking.create({ date, name, email, phone, vname, vno, vmodel, address, status, service });
+
+        // Send email notifications
         let mailOptionsOwner = {
             from: 'bikehub222@gmail.com',
             to: 'bikehub222@gmail.com',
@@ -60,7 +64,8 @@ module.exports.AddBooking = async (req, res) => {
         res.status(500).send({ status: "error", message: "Internal server error" });
     }
 };
-
+//Completed Booking
+//Fetches bookings with status "Completed" for the given user email.
 module.exports.CompletedBooking = async (req, res) => {
     const { email } = req.body;
     try {
@@ -71,7 +76,7 @@ module.exports.CompletedBooking = async (req, res) => {
         res.status(500).send({ status: "error", message: "Internal server error" });
     }
 };
-
+//Fetches bookings that are not completed for the given user email.
 module.exports.PendingBooking = async (req, res) => {
     const { email } = req.body;
     try {
@@ -82,7 +87,7 @@ module.exports.PendingBooking = async (req, res) => {
         res.status(500).send({ status: "error", message: "Internal server error" });
     }
 };
-
+//Fetches all bookings for the given user email.
 module.exports.FetchAllBooking = async (req, res) => {
     const { email } = req.body;
     try {
@@ -93,6 +98,7 @@ module.exports.FetchAllBooking = async (req, res) => {
         res.status(500).send({ status: "error", message: "Internal server error" });
     }
 };
+//Fetches bookings for the given vehicle number (vno).
 module.exports.SearchVnum = async (req, res) => {
     const { vno } = req.body;
     console.log(req.body);
@@ -104,7 +110,7 @@ module.exports.SearchVnum = async (req, res) => {
         res.status(500).send({ status: "error", message: "Internal server error" });
     }
 };
-
+//Fetches booking details for a specific booking ID (_id).
 module.exports.BookingDetails = async (req, res) => {
     const { _id } = req.body;
     try {
@@ -115,7 +121,7 @@ module.exports.BookingDetails = async (req, res) => {
         res.status(500).send({ status: "error", message: "Internal server error" });
     }
 };
-
+//Updates the booking status for a given booking ID (_id) and sends an email notification to the user based on the updated status.
 module.exports.UpdateBooking = async (req, res) => {
     const { _id, status, email,vno } = req.body;
     try {

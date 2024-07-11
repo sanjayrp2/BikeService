@@ -2,19 +2,6 @@
 const Admin=require("../Models/Admin");
 const CBooking=require("../Models/AddBooking");
 
-// //Update Number of Book per day
-// module.exports.UpdateNumofBooks= async (req, res) => {
-//     var { noofbook } = req.body;
-//     try {
-//         const data = await Admin.updateOne({}, { $set: { noofbook: noofbook } });
-//         res.send({ status: "ok"});
-//     } catch (error) {
-//         console.log(error);
-//     }
-// };
-
-
-// Find all datas in a particular Date
 
 module.exports.ParticularDate= async (req, res) => {
     const { date } = req.body;

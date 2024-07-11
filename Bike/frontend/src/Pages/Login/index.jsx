@@ -8,8 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import { RoleContext } from '../../Context/RoleContext';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './index.css';
 
+//The Login component provides a login form for users to enter their credentials and access the application. 
 export default function Login() {
   const [uname, setUname] = useState('');
   const [password, setPassword] = useState('');
@@ -23,10 +23,11 @@ export default function Login() {
     try {
       const response = await axios.post('http://localhost:5000/users/login', { uname, password });
       if (response.data.status === 'ok') {
+        //localStorage.setItem: Stores the token, role, and email in local storage.
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('role', response.data.role);
         localStorage.setItem('email', response.data.email);
-        setRole(response.data.role);
+        setRole(response.data.role); //setRole: Updates the user role in the context.
         toast.success('Login successful!');
         navigate('/');
       } else {
@@ -40,17 +41,18 @@ export default function Login() {
   };
 
   const validateForm = () => {
+    //Checks if the username or password is empty
     if (!uname || !password) {
       toast.error('Email and password are required.');
       return false;
     }
     return true;
   };
-
+  // Handles form submission.
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      handleLogin(e);
+      handleLogin(e);//Calls the login function if the form is valid.
     }
   };
 
@@ -93,8 +95,8 @@ export default function Login() {
               <Button
                 variant="contained"
                 type="submit"
-                sx={{ background: "#0C97BF" }}
-                disabled={loading}
+                sx={{ background: "#0C97BF" }} //Custom styling for the button.
+                disabled={loading}//disabled: Disables the button when loading.
               >
                 {loading ? 'Logging in...' : 'Login'}
               </Button>
