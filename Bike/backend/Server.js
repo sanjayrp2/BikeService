@@ -6,7 +6,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const mogoDburl = "mongodb://127.0.0.1:27017/BikeService";
+const mogoDburl = "mongodb+srv://Bikehub:HCljPSsmLJYK3NN2@bikeservice.i2gmc.mongodb.net/";
 
 //Database Connection
 mongoose.connect(mogoDburl)

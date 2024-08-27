@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from 'react'; //React and necessary hooks (useEffect, useState)
+import React, { useEffect, useState } from 'react'; // React and necessary hooks (useEffect, useState)
 import axios from 'axios'; // Axios for HTTP requests
 import { TextField, Button } from '@mui/material';
 import Navbar from '../../Component/Navbar';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../../Hooks/auth';
 import Table from '../../Component/Table';
-//State Variables
-export default function AllBooking() {
+
+// State Variables
+export default function AllBooking(booking) {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [refresh, setRefresh] = useState(true);
+  const [selectedStatus, setSelectedStatus] = useState('');
   const navigate = useNavigate();
   useAuth();
 
-
-
   const loadRefresh = () => {
     setRefresh(!refresh);
-  }
+  };
 
   useEffect(() => {
     fetchAllBookings();
@@ -56,7 +56,8 @@ export default function AllBooking() {
       setLoading(false);
     }
   };
-   //Search Form: Allows users to search for bookings by vehicle number.
+
+  // Search Form: Allows users to search for bookings by vehicle number.
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
@@ -70,7 +71,14 @@ export default function AllBooking() {
     }
   };
 
+  const handleStatusChange = (e) => setSelectedStatus(e.target.value)
 
+
+
+
+  const filteredBookings = selectedStatus
+    ? bookings.filter((booking) => booking.status === selectedStatus)
+    : bookings;
 
   return (
     <>
@@ -78,18 +86,25 @@ export default function AllBooking() {
       <div className="">
         <div className="mt-4">
           <h2 className="text-2xl font-bold text-center text-orange-600 mb-2">Bookings List</h2>
-          <div className='flex justify-between items-center mb-4'>
-            <form onSubmit={handleSearchSubmit} className='flex'>
+          <div className='flex justify-between items-center mb-4 '>
+            <form onSubmit={handleSearchSubmit} className='flex '>
               <TextField
                 label="Search by Vehicle Number"
                 variant="outlined"
                 value={searchTerm}
                 onChange={handleSearchChange}
-                sx={{ marginRight: 2 }}
+                sx={{ marginRight: 2  }}
               />
-              <Button variant="contained" sx={{ backgroundColor: '#0C97BF', mt: 2 }} type='submit'>
+              <Button variant="contained" sx={{ backgroundColor: '#0C97BF', mt: 2  }} type='submit'>
                 Search
               </Button>
+              <select value={selectedStatus} onChange={handleStatusChange} className='ml-2 mt-4 font-bold text-white border-none bg-cyan-600  rounded-md h-10'>
+                <option value="">All</option>
+                <option value="Pending">Pending</option>
+                <option value="Ready">Ready</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancel">Cancel</option>
+              </select>
             </form>
             <Button variant="contained" sx={{ backgroundColor: '#0C97BF' }} onClick={loadRefresh}>Refresh</Button>
           </div>
@@ -103,7 +118,7 @@ export default function AllBooking() {
                 <thead>
                   <tr>
                     <th className="py-2 px-4 border-b">Update Status</th>
-                    <th className="py-2 px-4 border-b ">Date</th>
+                    <th className="py-2 px-4 border-b">Date</th>
                     <th className="py-2 px-4 border-b">Name</th>
                     <th className="py-2 px-4 border-b">Email</th>
                     <th className="py-2 px-4 border-b">Phone</th>
@@ -116,8 +131,8 @@ export default function AllBooking() {
                   </tr>
                 </thead>
                 <tbody>
-                  {bookings.map((booking) => (
-                    <Table booking = {booking} refresh={refresh} setRefresh={setRefresh}/>
+                  {filteredBookings.map((booking) => (
+                    <Table key={booking.id} booking={booking} refresh={refresh} setRefresh={setRefresh} />
                   ))}
                 </tbody>
               </table>

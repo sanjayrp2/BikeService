@@ -1,7 +1,7 @@
 const express=require("express");
 const router=express.Router();
 
-const{UpdateServices,AddServices,AllServices,DeleteServices,FetchServices}=require("../Controllers/Add_Service_Controller");
+const{UpdateServices,AddServices,AllServices,DeleteServices,FetchServices,}=require("../Controllers/Add_Service_Controller");
 
 router.post('/addservices',AddServices);
 router.put('/updateservice',UpdateServices);

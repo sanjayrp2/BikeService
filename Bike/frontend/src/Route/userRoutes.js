@@ -1,6 +1,6 @@
 import React from 'react';
 import AddBookingForm from '../Pages/AddBooking';
-import AllBooking from '../Pages/AllBooking';
+
 import BookingHistory from '../Pages/BookingHistory';
 import PageNotFound from '../Pages/NotFound';
 import Home from '../Pages/Home/Home';
@@ -15,8 +15,6 @@ const userRoutes = [
   { path: '/history', element: <BookingHistory /> },//Path for the History page.
   { path: '/allservices', element: <AllService/> },//Path for the All services page.
   { path: '*', element: <PageNotFound /> },// A wildcard path that matches any route not explicitly defined.
-
-
 ];
 
 export default userRoutes;

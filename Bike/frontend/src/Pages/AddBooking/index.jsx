@@ -46,8 +46,8 @@ const AddBookingForm = () => {
     };
     //validateForm: Checks if all required fields are filled, validates email and phone formats, and shows error notifications if any validation fails.
     const validateForm = () => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const phoneRegex = /^\d{10}$/;
+        const emailRegex =/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phoneRegex = /^[0-9]$/;
 
         if (!formData.name || !formData.email || !formData.phone || !formData.vname || !formData.vno || !formData.vmodel || !formData.address || formData.service.length === 0) {
             toast.error('All fields are required.');
@@ -57,8 +57,8 @@ const AddBookingForm = () => {
             toast.error('Invalid email format.');
             return false;
         }
-        if (!phoneRegex.test(formData.phone)) {
-            toast.error('Phone number must be 10 digits.');
+        if (formData.phone.length<10){
+            toast.error('Invalid phone number.');
             return false;
         }
         return true;

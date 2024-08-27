@@ -2,7 +2,7 @@ const User=require("../Models/User");
 const Admin=require("../Models/Admin");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const SECRET_KEY = 'supersecret';
+const SECRET_KEY = 'supersecret';   
 
 //User Login
 module.exports.UserLogin = async (req, res) => {

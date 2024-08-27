@@ -13,7 +13,7 @@ module.exports.AddServices= async (req, res) => {
         } else {
             res.send({ status: "error1" });
         }
-    } catch (error) {
+    } catch (error) {   
         res.send({ send: "catch error" });
     }
 };
@@ -74,4 +74,6 @@ module.exports.DeleteServices = async (req, res) => {
         res.status(500).send({ status: "ERROR", message: "An error occurred while deleting the service" });
     }
 };
+
+
 

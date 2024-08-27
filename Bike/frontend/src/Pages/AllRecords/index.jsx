@@ -13,7 +13,6 @@ export default function AllRecords() {
   const email = localStorage.getItem('email');
   console.log(email);
   //Email: Retrieves the logged-in user's email from local storage.
-
   useEffect(() => {
     fetchAllBookings();
   }, []);

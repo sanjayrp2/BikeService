@@ -6,7 +6,6 @@ function authenticateToken(req, res, next) {
     if (!token) {
         return res.status(401).send({ status: 'error', message: 'Access Denied' });// Responds with a 401 Unauthorized status and an error message if the token is missing.
     }
-
     try {
         const verified = jwt.verify(token, SECRET_KEY);
         req.user = verified;
