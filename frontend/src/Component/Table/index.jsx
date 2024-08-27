@@ -18,7 +18,7 @@ export default function Table({ booking,refresh,setRefresh }) {
 
     const handleConfirm = async () => {
         try {
-            const response = await axios.put('http://localhost:5000/bookings/updatestatus', {
+            const response = await axios.put('https://bikehubserver.onrender.com/bookings/updatestatus', {
                 _id: booking._id, 
                 status: selectedStatus,
                 email : booking.email,

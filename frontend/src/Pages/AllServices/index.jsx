@@ -16,7 +16,7 @@ export default function AllService() {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/services/allservices');
+        const response = await axios.get('https://bikehubserver.onrender.com/services/allservices');
         if (response.data.status === 'OK') {
           setServices(response.data.data);
         } else {

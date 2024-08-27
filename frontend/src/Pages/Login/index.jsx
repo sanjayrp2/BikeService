@@ -21,7 +21,7 @@ export default function Login() {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:5000/users/login', { uname, password });
+      const response = await axios.post('https://bikehubserver.onrender.com/users/login', { uname, password });
       if (response.data.status === 'ok') {
         //localStorage.setItem: Stores the token, role, and email in local storage.
         localStorage.setItem('token', response.data.token);

@@ -14,7 +14,7 @@ export default function AddService() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/services/addservices', { sname, sdesc, samount });
+      const response = await axios.post('https://bikehubserver.onrender.com/services/addservices', { sname, sdesc, samount });
       if (response.data.status === 'ok') {
         
         setStatus('Service added successfully');

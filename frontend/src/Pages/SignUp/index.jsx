@@ -50,7 +50,7 @@ export default function SignUp() {
         if (!validateForm()) return;
 
         try {
-            const response = await axios.post('http://localhost:5000/users/signup', { email, phone, pass: password });
+            const response = await axios.post('https://bikehubserver.onrender.com/users/signup', { email, phone, pass: password });
             if (response.data.status === 'ok') {  //Checks if the signup was successful
                 toast.success('Signup successful!');
                 navigate('/');

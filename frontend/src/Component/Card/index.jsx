@@ -19,7 +19,7 @@ export default function Card({ sname, sdis, samnt, role, id, change, setChange }
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.put('http://localhost:5000/services/updateservice', {
+            const response = await axios.put('https://bikehubserver.onrender.com/services/updateservice', {
                 _id: id,
                 sname: serviceName,
                 sdesc: serviceDesc,
@@ -37,7 +37,7 @@ export default function Card({ sname, sdis, samnt, role, id, change, setChange }
 
     const handleDelete = async () => {
         try {
-            const response = await axios.delete('http://localhost:5000/services/deleteservices', { data: { _id: id } });
+            const response = await axios.delete('https://bikehubserver.onrender.com/services/deleteservices', { data: { _id: id } });
             if (response.data.status === 'OK') {
                 setChange(!change);
                 console.log('Service deleted successfully');

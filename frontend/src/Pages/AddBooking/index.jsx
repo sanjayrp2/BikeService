@@ -47,7 +47,6 @@ const AddBookingForm = () => {
     //validateForm: Checks if all required fields are filled, validates email and phone formats, and shows error notifications if any validation fails.
     const validateForm = () => {
         const emailRegex =/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const phoneRegex = /^[0-9]$/;
 
         if (!formData.name || !formData.email || !formData.phone || !formData.vname || !formData.vno || !formData.vmodel || !formData.address || formData.service.length === 0) {
             toast.error('All fields are required.');
@@ -69,7 +68,7 @@ const AddBookingForm = () => {
         if (!validateForm()) return;
 
         try {
-            const response = await axios.post('http://localhost:5000/bookings/addbooking', formData);
+            const response = await axios.post('https://bikehubserver.onrender.com/bookings/addbooking', formData);
             if (response.data.status === 'ok') {
                 navigate('/', { state: { message: 'Booking completed!' } });
             } else {
@@ -84,7 +83,7 @@ const AddBookingForm = () => {
     useEffect(() => {
         const fetchServices = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/services/allservices');
+                const response = await axios.get('https://bikehubserver.onrender.com/services/allservices');
                 if (response.data.status === 'OK') {
                     setServices(response.data.data);
                 } else {

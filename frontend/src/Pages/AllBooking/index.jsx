@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'; // React and necessary hooks
 import axios from 'axios'; // Axios for HTTP requests
 import { TextField, Button } from '@mui/material';
 import Navbar from '../../Component/Navbar';
-import { useNavigate } from 'react-router-dom';
 import useAuth from '../../Hooks/auth';
 import Table from '../../Component/Table';
 
@@ -14,7 +13,7 @@ export default function AllBooking(booking) {
   const [searchTerm, setSearchTerm] = useState('');
   const [refresh, setRefresh] = useState(true);
   const [selectedStatus, setSelectedStatus] = useState('');
-  const navigate = useNavigate();
+
   useAuth();
 
   const loadRefresh = () => {
@@ -28,7 +27,7 @@ export default function AllBooking(booking) {
   const fetchAllBookings = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:5000/admin/seeallbooking');
+      const response = await axios.get('https://bikehubserver.onrender.com/admin/seeallbooking');
       if (response.data.status === 'OK') {
         setBookings(response.data.data);
       } else {
@@ -44,7 +43,7 @@ export default function AllBooking(booking) {
   const fetchBookingsByVnum = async (vno) => {
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:5000/bookings/searchvnum', { vno });
+      const response = await axios.post('https://bikehubserver.onrender.com/bookings/searchvnum', { vno });
       if (response.data.status === 'OK') {
         setBookings(response.data.data);
       } else {

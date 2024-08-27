@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { TextField, Button } from '@mui/material';
+import {  Button } from '@mui/material';
 import Navbar from '../../Component/Navbar';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,12 +15,12 @@ export default function AllRecords() {
   //Email: Retrieves the logged-in user's email from local storage.
   useEffect(() => {
     fetchAllBookings();
-  }, []);
+  },[]);
 
   const fetchAllBookings = async () => {
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:5000/bookings/pending',{email:email});
+      const response = await axios.post('https://bikehubserver.onrender.com/bookings/pending',{email:email});
       if (response.data.status === 'OK') {
         setBookings(response.data.data);
       } else {

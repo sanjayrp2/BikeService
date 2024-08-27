@@ -13,7 +13,7 @@ const useAuth = () => {
         navigate('/login');
       } else {
         try { //Attempts to verify the token by making an API request.
-          const response = await axios.get('http://localhost:5000/protected-route', { //Makes a GET request to a protected route, including the token in the headers.
+          const response = await axios.get('https://bikehubserver.onrender.com/protected-route', { //Makes a GET request to a protected route, including the token in the headers.
             headers: {
               Authorization: `Bearer ${token}`
             }

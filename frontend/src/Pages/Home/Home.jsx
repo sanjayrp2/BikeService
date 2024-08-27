@@ -3,7 +3,6 @@ import Navbar from '../../Component/Navbar';
 import { home } from '../../Assets';
 import Button from '@mui/material/Button';
 import { useLocation, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import useAuth from '../../Hooks/auth';
 import { ToastContainer,toast } from 'react-toastify';
 
@@ -24,7 +23,7 @@ export default function Home() {
       <ToastContainer/>
       <div className='flex flex-col lg:flex-row justify-center items-center  lg:space-x-10'>
         <div className=' w-full md:w-1/2'>
-          <img src={home} alt="Home Image" className='object-contain'></img>
+          <img src={home} alt="Homeimage" className='object-contain'></img>
         </div>
 
         {

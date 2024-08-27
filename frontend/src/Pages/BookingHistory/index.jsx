@@ -12,8 +12,7 @@ export default function BookingHistory() {
     const fetchBookings = async () => {
       try {
         //axios.post: Sends a POST request to the server with the user's email to fetch booking history.
-        const response = await axios.post('http://localhost:5000/bookings/history', { email:email});
-        console.log(response);
+        const response = await axios.post('https://bikehubserver.onrender.com/bookings/history', { email:email});
         if (response.data.status === 'OK') {
           setBookings(response.data.data);
         } else {
@@ -27,7 +26,7 @@ export default function BookingHistory() {
     };
     //fetchBookings: Asynchronous function to fetch bookings
     fetchBookings();
-  }, []);
+  }, [email]);
 
   return (
     <>
